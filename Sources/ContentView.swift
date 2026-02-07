@@ -14,10 +14,19 @@ struct ContentView: View {
                 VStack(spacing: 20) {
                     // RAM Gauge
                     ramGaugeView
-                    
+
+                    // Metrics Dashboard
+                    metricsView
+
+                    // Browser Tabs Section
+                    browserTabsView
+
+                    // AI Predictions Section
+                    predictionsView
+
                     // Mode Selector
                     modeSelectorView
-                    
+
                     // Process List
                     processListView
                 }
@@ -56,7 +65,27 @@ struct ContentView: View {
             }
             .buttonStyle(PlainButtonStyle())
             .help("Demo Mode (CMD+Shift+D)")
-            
+
+            // AI Analyze Button
+            Button(action: {
+                appState.analyzePatternsWithAI()
+            }) {
+                HStack(spacing: 4) {
+                    if appState.isAnalyzingPatterns {
+                        ProgressView()
+                            .scaleEffect(0.6)
+                    } else {
+                        Image(systemName: "brain")
+                    }
+                    Text("Analyze")
+                        .font(.caption)
+                }
+                .foregroundColor(.secondary)
+            }
+            .buttonStyle(PlainButtonStyle())
+            .disabled(appState.isAnalyzingPatterns)
+            .help("Analyze patterns with AI")
+
             Button(action: {
                 showingSettings = true
             }) {
@@ -148,7 +177,256 @@ struct ContentView: View {
             return .red
         }
     }
-    
+
+    /// Metrics dashboard showing user impact
+    ///
+    /// Displays freeze prevention stats, RAM saved, time saved, and processes managed.
+    /// All metrics are persisted and updated in real-time.
+    private var metricsView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("📊 Your Impact")
+                .font(.headline)
+                .foregroundColor(.secondary)
+
+            VStack(spacing: 8) {
+                HStack(spacing: 12) {
+                    MetricCard(
+                        icon: "shield.fill",
+                        value: "\(appState.metrics.freezesPrevented)",
+                        label: "Freezes Prevented"
+                    )
+
+                    MetricCard(
+                        icon: "memorychip.fill",
+                        value: appState.metrics.ramSavedFormatted,
+                        label: "RAM Saved"
+                    )
+                }
+
+                HStack(spacing: 12) {
+                    MetricCard(
+                        icon: "clock.fill",
+                        value: appState.metrics.timeSavedFormatted,
+                        label: "Time Saved"
+                    )
+
+                    MetricCard(
+                        icon: "gearshape.2.fill",
+                        value: "\(appState.metrics.processesSuspended)",
+                        label: "Processes Managed"
+                    )
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.1))
+                .background(
+                    VisualEffectView(material: .popover, blendingMode: .behindWindow)
+                        .cornerRadius(12)
+                )
+                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+        )
+    }
+
+    /// Browser tabs section showing tab counts by category
+    ///
+    /// Displays categorized browser tabs (media, dev, social, docs) with estimated RAM usage.
+    /// Provides "Suspend Media" button when media tabs are detected.
+    private var browserTabsView: some View {
+        Group {
+            if let tabs = appState.browserTabs {
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Image(systemName: "safari.fill")
+                            .foregroundColor(.blue)
+                        Text("Browser Tabs")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+
+                        Spacer()
+
+                        Button(action: {
+                            appState.loadBrowserTabs()
+                        }) {
+                            Image(systemName: "arrow.clockwise")
+                                .foregroundColor(.secondary)
+                                .font(.subheadline)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+
+                    VStack(spacing: 8) {
+                        TabCategoryRow(
+                            icon: "play.tv.fill",
+                            label: "Media",
+                            count: tabs.media.count,
+                            color: .red
+                        )
+
+                        TabCategoryRow(
+                            icon: "chevron.left.forwardslash.chevron.right",
+                            label: "Development",
+                            count: tabs.dev.count,
+                            color: .green
+                        )
+
+                        TabCategoryRow(
+                            icon: "bubble.left.and.bubble.right.fill",
+                            label: "Social",
+                            count: tabs.social.count,
+                            color: .blue
+                        )
+
+                        TabCategoryRow(
+                            icon: "doc.text.fill",
+                            label: "Documents",
+                            count: tabs.docs.count,
+                            color: .orange
+                        )
+                    }
+
+                    HStack(spacing: 8) {
+                        Text("Est. RAM: \(String(format: "%.1f", tabs.estimatedRAM()))GB")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+
+                        Spacer()
+
+                        if tabs.media.count > 0 {
+                            Button(action: {
+                                appState.suspendMediaTabs()
+                            }) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "pause.circle.fill")
+                                    Text("Suspend Media")
+                                }
+                                .font(.caption)
+                                .fontWeight(.medium)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.red.opacity(0.8))
+                                .cornerRadius(6)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.white.opacity(0.1))
+                        .background(
+                            VisualEffectView(material: .popover, blendingMode: .behindWindow)
+                                .cornerRadius(12)
+                        )
+                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+                )
+            } else if appState.isLoadingTabs {
+                HStack(spacing: 8) {
+                    ProgressView()
+                        .scaleEffect(0.7)
+                    Text("Loading browser tabs...")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
+            }
+        }
+    }
+
+    /// AI Predictions section showing active predictions and insights
+    ///
+    /// Displays currently active prediction with trigger, recommendation, and confidence.
+    /// Shows AI insights when predictions exist but aren't currently active.
+    private var predictionsView: some View {
+        Group {
+            if let activePrediction = appState.activePrediction {
+                // Active prediction - show prominently
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Image(systemName: "brain.head.profile")
+                            .foregroundColor(.purple)
+                        Text("AI Prediction Active")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                    }
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "clock.fill")
+                                .foregroundColor(.blue)
+                                .font(.caption)
+                            Text(activePrediction.trigger)
+                                .font(.caption)
+                                .foregroundColor(.white.opacity(0.9))
+                        }
+
+                        Text(activePrediction.recommendation)
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.7))
+                            .padding(.top, 4)
+
+                        HStack {
+                            Text("Confidence:")
+                                .font(.caption2)
+                                .foregroundColor(.white.opacity(0.5))
+                            Text("\(Int(activePrediction.confidence * 100))%")
+                                .font(.caption2)
+                                .foregroundColor(.green)
+                        }
+                        .padding(.top, 2)
+                    }
+                    .padding(10)
+                    .background(Color.purple.opacity(0.15))
+                    .cornerRadius(8)
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.white.opacity(0.1))
+                        .background(
+                            VisualEffectView(material: .popover, blendingMode: .behindWindow)
+                                .cornerRadius(12)
+                        )
+                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+                )
+            } else if let predictions = appState.predictions, !predictions.insights.isEmpty {
+                // Predictions exist but not currently active - show insights
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Image(systemName: "lightbulb.fill")
+                            .foregroundColor(.yellow)
+                        Text("AI Insights")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                    }
+
+                    Text(predictions.insights)
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.8))
+                        .lineLimit(3)
+
+                    Text("\(predictions.patterns.count) patterns identified")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.5))
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.white.opacity(0.1))
+                        .background(
+                            VisualEffectView(material: .popover, blendingMode: .behindWindow)
+                                .cornerRadius(12)
+                        )
+                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+                )
+            }
+        }
+    }
+
     private var modeSelectorView: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Mode")
@@ -290,10 +568,80 @@ struct ProcessRow: View {
     }
 }
 
+/// Tab category row showing icon, label, and count badge
+///
+/// Used in browser tabs section to display each category with color coding.
+struct TabCategoryRow: View {
+    let icon: String
+    let label: String
+    let count: Int
+    let color: Color
+
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(color)
+                .frame(width: 20)
+                .font(.subheadline)
+
+            Text(label)
+                .font(.subheadline)
+                .foregroundColor(.primary)
+
+            Spacer()
+
+            Text("\(count)")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 4)
+                .background(color.opacity(0.3))
+                .cornerRadius(6)
+        }
+        .padding(.vertical, 2)
+    }
+}
+
+/// Individual metric card displaying an icon, value, and label
+///
+/// Used in the metrics dashboard to show key statistics in a compact,
+/// visually consistent format.
+struct MetricCard: View {
+    let icon: String
+    let value: String
+    let label: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .foregroundColor(.blue)
+                    .font(.system(size: 14))
+
+                Text(value)
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .foregroundColor(.primary)
+            }
+
+            Text(label)
+                .font(.system(size: 11))
+                .foregroundColor(.secondary)
+                .lineLimit(1)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(10)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.white.opacity(0.05))
+        )
+    }
+}
+
 struct VisualEffectView: NSViewRepresentable {
     let material: NSVisualEffectView.Material
     let blendingMode: NSVisualEffectView.BlendingMode
-    
+
     func makeNSView(context: Context) -> NSVisualEffectView {
         let view = NSVisualEffectView()
         view.material = material
@@ -301,7 +649,7 @@ struct VisualEffectView: NSViewRepresentable {
         view.state = .active
         return view
     }
-    
+
     func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
         nsView.material = material
         nsView.blendingMode = blendingMode

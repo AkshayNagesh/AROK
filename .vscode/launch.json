@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:AROK}",
+            "name": "Debug AROK",
+            "target": "AROK",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug AROK"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:AROK}",
+            "name": "Release AROK",
+            "target": "AROK",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release AROK"
+        }
+    ]
+}
