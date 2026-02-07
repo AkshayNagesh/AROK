@@ -2,6 +2,14 @@
 
 AROK is an intent-aware compute governor that keeps your Mac responsive by pausing low-priority apps before memory pressure causes system freezes.
 
+## 📚 Documentation
+
+- **[COMPREHENSIVE_DOCUMENTATION.md](./COMPREHENSIVE_DOCUMENTATION.md)** - Complete technical documentation (architecture, API reference, code breakdown)
+- **[DEVELOPMENT_NOTES.md](./DEVELOPMENT_NOTES.md)** - Development journey, decisions, and lessons learned
+- **[SETUP.md](./SETUP.md)** - Detailed setup and installation instructions
+- **[DEMO_SCRIPT.md](./DEMO_SCRIPT.md)** - 90-second demo presentation script
+- **[PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)** - Quick project overview and highlights
+
 ## Features
 
 - **Menu Bar Integration**: Native macOS menu bar app that shows CPU and memory usage
