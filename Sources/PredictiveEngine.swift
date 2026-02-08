@@ -54,7 +54,7 @@ class PredictiveEngine {
     ///
     /// For hackathon: Can hardcode temporarily
     /// For production: Use environment variable or Keychain
-    private let apiKey = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? "YOUR_API_KEY_HERE"
+    private let apiKey = Foundation.ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"] ?? "YOUR_API_KEY_HERE"
 
     private let apiURL = "https://api.anthropic.com/v1/messages"
 

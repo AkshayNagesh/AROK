@@ -21,6 +21,9 @@ struct ContentView: View {
                     // Browser Tabs Section
                     browserTabsView
 
+                    // File Cleanup Section
+                    cleanupView
+
                     // AI Predictions Section
                     predictionsView
 
@@ -335,6 +338,192 @@ struct ContentView: View {
                 .padding()
             }
         }
+    }
+
+    /// File cleanup section with AI-powered analysis
+    ///
+    /// Allows users to request cleanup in natural language (e.g., "delete files older than 2 years").
+    /// Shows analysis results with file counts, warnings, and execute button.
+    private var cleanupView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Image(systemName: "trash.fill")
+                    .foregroundColor(.red)
+                Text("File Cleanup")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+            }
+
+            // Text input for cleanup request
+            TextField("e.g., delete files older than 2 years", text: $appState.cleanupRequest)
+                .textFieldStyle(.plain)
+                .padding(10)
+                .background(Color.white.opacity(0.1))
+                .cornerRadius(8)
+                .foregroundColor(.primary)
+
+            // Analyze button
+            Button(action: {
+                appState.analyzeCleanupRequest()
+            }) {
+                HStack(spacing: 6) {
+                    if appState.isAnalyzingCleanup {
+                        ProgressView()
+                            .scaleEffect(0.7)
+                    } else {
+                        Image(systemName: "sparkles")
+                    }
+                    Text(appState.isAnalyzingCleanup ? "Analyzing..." : "Analyze with AI")
+                }
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
+                .background(appState.cleanupRequest.isEmpty ? Color.gray.opacity(0.3) : Color.blue.opacity(0.8))
+                .cornerRadius(8)
+            }
+            .buttonStyle(PlainButtonStyle())
+            .disabled(appState.cleanupRequest.isEmpty || appState.isAnalyzingCleanup)
+
+            // Show cleanup plan if available
+            if let plan = appState.cleanupPlan {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(plan.summary)
+                        .font(.caption)
+                        .foregroundColor(.primary)
+
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Files to delete: \(plan.filesToDelete.count)")
+                                .font(.caption2)
+                                .foregroundColor(.red)
+                            if !plan.warnings.isEmpty {
+                                Text("Warnings: \(plan.warnings.count)")
+                                    .font(.caption2)
+                                    .foregroundColor(.orange)
+                            }
+                        }
+
+                        Spacer()
+
+                        Button(action: {
+                            appState.executeCleanupPlan()
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "trash.circle.fill")
+                                Text("Delete Files")
+                            }
+                            .font(.caption)
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Color.red.opacity(0.8))
+                            .cornerRadius(6)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+
+                    // Show warning details if any
+                    if !plan.warnings.isEmpty {
+                        Divider()
+                            .background(Color.orange.opacity(0.3))
+                            .padding(.vertical, 4)
+
+                        VStack(alignment: .leading, spacing: 6) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.orange)
+                                    .font(.caption2)
+                                Text("Files Skipped (may be important):")
+                                    .font(.caption2)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.orange)
+                            }
+
+                            ScrollView {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    ForEach(Array(plan.warnings.prefix(5).enumerated()), id: \.offset) { _, warning in
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            Text((warning.file as NSString).lastPathComponent)
+                                                .font(.system(size: 10, design: .monospaced))
+                                                .foregroundColor(.orange)
+                                                .lineLimit(1)
+                                                .truncationMode(.middle)
+
+                                            Text(warning.reason)
+                                                .font(.system(size: 9))
+                                                .foregroundColor(.secondary)
+                                                .lineLimit(2)
+                                        }
+                                        .padding(.vertical, 2)
+
+                                        if warning.file != plan.warnings.prefix(5).last?.file {
+                                            Divider()
+                                                .background(Color.gray.opacity(0.2))
+                                        }
+                                    }
+
+                                    if plan.warnings.count > 5 {
+                                        Text("+ \(plan.warnings.count - 5) more warnings")
+                                            .font(.system(size: 9))
+                                            .foregroundColor(.secondary)
+                                            .italic()
+                                    }
+                                }
+                            }
+                            .frame(maxHeight: 100)
+                        }
+                        .padding(8)
+                        .background(Color.orange.opacity(0.05))
+                        .cornerRadius(6)
+                    }
+                }
+                .padding(10)
+                .background(Color.red.opacity(0.1))
+                .cornerRadius(8)
+            }
+
+            // Show result if available
+            if let result = appState.cleanupResult {
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+                        Text("Cleanup Complete!")
+                            .font(.caption)
+                            .fontWeight(.medium)
+                            .foregroundColor(.green)
+                    }
+
+                    Text("Deleted: \(result.deletedCount) files")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                    Text("Freed: \(String(format: "%.1f", result.freedGB))GB")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                    if result.failedCount > 0 {
+                        Text("Failed: \(result.failedCount) files")
+                            .font(.caption2)
+                            .foregroundColor(.orange)
+                    }
+                }
+                .padding(10)
+                .background(Color.green.opacity(0.1))
+                .cornerRadius(8)
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.1))
+                .background(
+                    VisualEffectView(material: .popover, blendingMode: .behindWindow)
+                        .cornerRadius(12)
+                )
+                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+        )
     }
 
     /// AI Predictions section showing active predictions and insights

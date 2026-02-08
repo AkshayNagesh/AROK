@@ -1,6 +1,6 @@
 import Foundation
 
-enum IntervenerResult {
+enum IntervenerResult: Equatable {
     case success
     case failure(String)
 }

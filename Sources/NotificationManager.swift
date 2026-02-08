@@ -54,6 +54,8 @@ struct NotificationManager {
         case predictive(action: String)
         /// Browser tabs were suspended
         case tabsSuspended(count: Int, ramFreed: Double)
+        /// File cleanup completed
+        case cleanupComplete(filesDeleted: Int, spaceFreed: Double)
     }
 
     /// Generates a snarky notification message for the given event type
@@ -92,6 +94,10 @@ struct NotificationManager {
         case .tabsSuspended(let count, let ramFreed):
             message = tabSuspendMessages(count: count, ramFreed: ramFreed).randomElement() ?? "Suspended \(count) tabs"
             logger.info("🔔 Tab suspend notification: \(message)")
+
+        case .cleanupComplete(let filesDeleted, let spaceFreed):
+            message = cleanupMessages(filesDeleted: filesDeleted, spaceFreed: spaceFreed).randomElement() ?? "Deleted \(filesDeleted) files"
+            logger.info("🔔 Cleanup notification: \(message)")
         }
 
         return message
@@ -170,5 +176,42 @@ struct NotificationManager {
             "Tab hoarder alert: Suspended \(count) tabs, saved \(ramStr)GB.",
             "\(count) tabs suspended. Your browser addiction is under control... for now."
         ]
+    }
+
+    /// Messages for file cleanup completion
+    ///
+    /// Tone: Marie Kondo meets snarky IT support. Addresses digital hoarding.
+    /// Variables: filesDeleted (count), spaceFreed (GB)
+    private static func cleanupMessages(filesDeleted: Int, spaceFreed: Double) -> [String] {
+        let spaceStr = String(format: "%.1f", spaceFreed)
+
+        if spaceFreed > 10.0 {
+            // Large cleanup (>10GB)
+            return [
+                "Deleted \(filesDeleted) files. Freed \(spaceStr)GB. Did you forget you even had a hard drive?",
+                "Found \(spaceStr)GB of junk. Your SSD thanks me. You're welcome.",
+                "Cleaned up \(filesDeleted) files (\(spaceStr)GB). Marie Kondo would be proud.",
+                "\(spaceStr)GB of cache deleted. That's like \(Int(spaceFreed / 4)) movies worth of space.",
+                "Cleared \(spaceStr)GB of digital dust. When was the last time you cleaned up?"
+            ]
+        } else if spaceFreed > 1.0 {
+            // Medium cleanup (1-10GB)
+            return [
+                "Deleted \(filesDeleted) cache files. Freed \(spaceStr)GB. Not bad!",
+                "Found \(filesDeleted) junk files hiding on your Mac. \(spaceStr)GB recovered.",
+                "Cleaned up \(spaceStr)GB of forgotten cache files. Your SSD feels lighter already.",
+                "\(filesDeleted) files deleted, \(spaceStr)GB freed. Small wins add up.",
+                "Swept up \(filesDeleted) digital crumbs. \(spaceStr)GB back in your pocket."
+            ]
+        } else {
+            // Small cleanup (<1GB)
+            return [
+                "Deleted \(filesDeleted) files. Freed \(spaceStr)GB. Every little bit helps!",
+                "Found \(filesDeleted) tiny cache files. \(spaceStr)GB isn't much, but it's honest work.",
+                "Cleaned \(filesDeleted) files (\(spaceStr)GB). Not a huge haul, but your Mac is tidier.",
+                "\(filesDeleted) files gone, \(spaceStr)GB freed. Baby steps toward a clean Mac.",
+                "Deleted \(filesDeleted) cache files. \(spaceStr)GB freed. It's the thought that counts, right?"
+            ]
+        }
     }
 }

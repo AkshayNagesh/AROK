@@ -7,27 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AROK_AIAdvisor /* AIAdvisor.swift */ = {isa = PBXBuildFile; fileRef = AROK_AIAdvisor_FileRef; };
-		AROK_App /* AROKApp.swift */ = {isa = PBXBuildFile; fileRef = AROK_App_FileRef; };
-		AROK_AppState /* AppState.swift */ = {isa = PBXBuildFile; fileRef = AROK_AppState_FileRef; };
-		AROK_ContentView /* ContentView.swift */ = {isa = PBXBuildFile; fileRef = AROK_ContentView_FileRef; };
-		AROK_DemoMode /* DemoMode.swift */ = {isa = PBXBuildFile; fileRef = AROK_DemoMode_FileRef; };
-		AROK_IntentEngine /* IntentEngine.swift */ = {isa = PBXBuildFile; fileRef = AROK_IntentEngine_FileRef; };
-		AROK_ProcessIntervener /* ProcessIntervener.swift */ = {isa = PBXBuildFile; fileRef = AROK_ProcessIntervener_FileRef; };
-		AROK_SystemMonitor /* SystemMonitor.swift */ = {isa = PBXBuildFile; fileRef = AROK_SystemMonitor_FileRef; };
+		866123842F37E83A00954B83 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866123822F37E83A00954B83 /* NotificationManager.swift */; };
+		866123852F37E83A00954B83 /* PredictiveEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866123832F37E83A00954B83 /* PredictiveEngine.swift */; };
+		866123862F37E83A00954B83 /* MetricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866123812F37E83A00954B83 /* MetricsManager.swift */; };
+		866123872F37E83A00954B83 /* BrowserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866123802F37E83A00954B83 /* BrowserManager.swift */; };
+		866123882F37E83A00954B83 /* ActivityLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8661237F2F37E83A00954B83 /* ActivityLogger.swift */; };
+		8661238C2F3800B200954B83 /* FileCleanup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8661238B2F3800B200954B83 /* FileCleanup.swift */; };
+		AROK_AIAdvisor /* AIAdvisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AROK_AIAdvisor_FileRef /* AIAdvisor.swift */; };
+		AROK_App /* AROKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AROK_App_FileRef /* AROKApp.swift */; };
+		AROK_AppState /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AROK_AppState_FileRef /* AppState.swift */; };
+		AROK_ContentView /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AROK_ContentView_FileRef /* ContentView.swift */; };
+		AROK_DemoMode /* DemoMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AROK_DemoMode_FileRef /* DemoMode.swift */; };
+		AROK_IntentEngine /* IntentEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AROK_IntentEngine_FileRef /* IntentEngine.swift */; };
+		AROK_ProcessIntervener /* ProcessIntervener.swift in Sources */ = {isa = PBXBuildFile; fileRef = AROK_ProcessIntervener_FileRef /* ProcessIntervener.swift */; };
+		AROK_SystemMonitor /* SystemMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AROK_SystemMonitor_FileRef /* SystemMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8661237F2F37E83A00954B83 /* ActivityLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogger.swift; sourceTree = "<group>"; };
+		866123802F37E83A00954B83 /* BrowserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserManager.swift; sourceTree = "<group>"; };
+		866123812F37E83A00954B83 /* MetricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsManager.swift; sourceTree = "<group>"; };
+		866123822F37E83A00954B83 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		866123832F37E83A00954B83 /* PredictiveEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictiveEngine.swift; sourceTree = "<group>"; };
+		8661238A2F37F67400954B83 /* AROK.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AROK.entitlements; sourceTree = "<group>"; };
+		8661238B2F3800B200954B83 /* FileCleanup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCleanup.swift; sourceTree = "<group>"; };
 		AROK_AIAdvisor_FileRef /* AIAdvisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAdvisor.swift; sourceTree = "<group>"; };
-		AROK_App_FileRef /* AROKApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AROKApp.swift; sourceTree = "<group>"; };
 		AROK_AppState_FileRef /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		AROK_App_FileRef /* AROKApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AROKApp.swift; sourceTree = "<group>"; };
 		AROK_ContentView_FileRef /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AROK_DemoMode_FileRef /* DemoMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoMode.swift; sourceTree = "<group>"; };
+		AROK_InfoPlist /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AROK_IntentEngine_FileRef /* IntentEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentEngine.swift; sourceTree = "<group>"; };
 		AROK_ProcessIntervener_FileRef /* ProcessIntervener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessIntervener.swift; sourceTree = "<group>"; };
-		AROK_SystemMonitor_FileRef /* SystemMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMonitor.swift; sourceTree = "<group>"; };
-		AROK_InfoPlist /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AROK_Product /* AROK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AROK.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AROK_SystemMonitor_FileRef /* SystemMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,22 +57,37 @@
 		AROK_Group = {
 			isa = PBXGroup;
 			children = (
-				AROK_Sources_Group,
-				AROK_InfoPlist,
+				8661238A2F37F67400954B83 /* AROK.entitlements */,
+				AROK_Sources_Group /* Sources */,
+				AROK_InfoPlist /* Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
-		AROK_Sources_Group = {
+		AROK_Products_Group /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AROK_App_FileRef,
-				AROK_AppState_FileRef,
-				AROK_ContentView_FileRef,
-				AROK_DemoMode_FileRef,
-				AROK_IntentEngine_FileRef,
-				AROK_ProcessIntervener_FileRef,
-				AROK_SystemMonitor_FileRef,
-				AROK_AIAdvisor_FileRef,
+				AROK_Product /* AROK.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AROK_Sources_Group /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8661238B2F3800B200954B83 /* FileCleanup.swift */,
+				8661237F2F37E83A00954B83 /* ActivityLogger.swift */,
+				866123802F37E83A00954B83 /* BrowserManager.swift */,
+				866123812F37E83A00954B83 /* MetricsManager.swift */,
+				866123822F37E83A00954B83 /* NotificationManager.swift */,
+				866123832F37E83A00954B83 /* PredictiveEngine.swift */,
+				AROK_App_FileRef /* AROKApp.swift */,
+				AROK_AppState_FileRef /* AppState.swift */,
+				AROK_ContentView_FileRef /* ContentView.swift */,
+				AROK_DemoMode_FileRef /* DemoMode.swift */,
+				AROK_IntentEngine_FileRef /* IntentEngine.swift */,
+				AROK_ProcessIntervener_FileRef /* ProcessIntervener.swift */,
+				AROK_SystemMonitor_FileRef /* SystemMonitor.swift */,
+				AROK_AIAdvisor_FileRef /* AIAdvisor.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -69,7 +97,7 @@
 /* Begin PBXNativeTarget section */
 		AROK_Target /* AROK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AROK_BuildConfigList /* Build configuration list for PBXNativeTarget "AROK" */;
+			buildConfigurationList = 866123892F37E83A00954B83 /* Build configuration list for PBXNativeTarget "AROK" */;
 			buildPhases = (
 				AROK_Sources /* Sources */,
 				AROK_Frameworks /* Frameworks */,
@@ -109,22 +137,63 @@
 				AROK_Target /* AROK */,
 			);
 		};
-		AROK_Products_Group /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AROK_Product /* AROK.app */,
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AROK_Sources /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8661238C2F3800B200954B83 /* FileCleanup.swift in Sources */,
+				AROK_App /* AROKApp.swift in Sources */,
+				AROK_AppState /* AppState.swift in Sources */,
+				AROK_ContentView /* ContentView.swift in Sources */,
+				AROK_DemoMode /* DemoMode.swift in Sources */,
+				AROK_IntentEngine /* IntentEngine.swift in Sources */,
+				866123842F37E83A00954B83 /* NotificationManager.swift in Sources */,
+				866123852F37E83A00954B83 /* PredictiveEngine.swift in Sources */,
+				866123862F37E83A00954B83 /* MetricsManager.swift in Sources */,
+				866123872F37E83A00954B83 /* BrowserManager.swift in Sources */,
+				866123882F37E83A00954B83 /* ActivityLogger.swift in Sources */,
+				AROK_ProcessIntervener /* ProcessIntervener.swift in Sources */,
+				AROK_SystemMonitor /* SystemMonitor.swift in Sources */,
+				AROK_AIAdvisor /* AIAdvisor.swift in Sources */,
 			);
-			name = Products;
-			sourceTree = "<group>";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AROK_Project_BuildConfigList /* Build configuration list for PBXProject "AROK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AROK_Project_Debug /* Debug */,
-				AROK_Project_Release /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8661237D2F37E63B00954B83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AROK.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 6DG99UN7ZY;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arok.app;
+				PRODUCT_NAME = AROK;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8661237E2F37E63B00954B83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AROK.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6DG99UN7ZY;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arok.app;
+				PRODUCT_NAME = AROK;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
 		};
 		AROK_Project_Debug /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -245,89 +314,28 @@
 			};
 			name = Release;
 		};
-		AROK_Target_BuildConfigList /* Build configuration list for PBXNativeTarget "AROK" */ = {
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		866123892F37E83A00954B83 /* Build configuration list for PBXNativeTarget "AROK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AROK_Target_Debug /* Debug */,
-				AROK_Target_Release /* Release */,
+				8661237D2F37E63B00954B83 /* Debug */,
+				8661237E2F37E63B00954B83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AROK_Target_Debug /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arok.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		AROK_Target_Release /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arok.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin PBXSourcesBuildPhase section */
-		AROK_Sources /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AROK_App /* AROKApp.swift */,
-				AROK_AppState /* AppState.swift */,
-				AROK_ContentView /* ContentView.swift */,
-				AROK_DemoMode /* DemoMode.swift */,
-				AROK_IntentEngine /* IntentEngine.swift */,
-				AROK_ProcessIntervener /* ProcessIntervener.swift */,
-				AROK_SystemMonitor /* SystemMonitor.swift */,
-				AROK_AIAdvisor /* AIAdvisor.swift */,
+		AROK_Project_BuildConfigList /* Build configuration list for PBXProject "AROK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AROK_Project_Debug /* Debug */,
+				AROK_Project_Release /* Release */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-/* End PBXSourcesBuildPhase section */
-
+/* End XCConfigurationList section */
 	};
 	rootObject = AROK_Project /* Project object */;
 }
