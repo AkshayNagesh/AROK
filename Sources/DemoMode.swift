@@ -115,8 +115,9 @@ class DemoMode {
                 ]
             }
 
-            // Filter out suspended processes
-            return allProcesses.filter { !suspendedPIDs.contains($0.pid) }
+            // Keep all processes in the list (including suspended ones)
+            // The UI will show them with resume button instead of suspend button
+            return allProcesses
         }
         return await SystemMonitor.shared.getProcessList()
     }
